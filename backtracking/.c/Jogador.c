@@ -15,72 +15,78 @@ void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
         }
     }
 }
-void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
+void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
     int line = PtrJogador->JogadorLine;
     int collun = PtrJogador->JogadorCollun;
-    backtraking(&line,&collun,PtrJogador,PtrTabuleiro);
+    initialize(PtrPilha);
+    backtraking(&line,&collun,PtrJogador,PtrTabuleiro,PtrPilha);
 }
 //Colocar função para verificar se tem apenas uma via,bloqueado por 3 lados
-void backtraking(int *i,int *j,JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
-    for (int x = 0; x < PtrTabuleiro->lineMatriz; x++) {
-        for(int y = 0;y< PtrTabuleiro->collunMatriz;y++){
-            printf("%c ",PtrJogador->PercursoJogador[x][y]);
-        }
-        printf("\n");
-    }
-    do{
+int backtraking(int *i,int *j,JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
+    //for (int x = 0; x < PtrTabuleiro->lineMatriz; x++) {
+        //for(int y = 0;y< PtrTabuleiro->collunMatriz;y++){
+          //  printf("%c ",PtrJogador->PercursoJogador[x][y]);
+        //}
+      //  printf("\n");
+    //}
         if(PtrJogador->PercursoJogador[(*i)][(*j)] == '0'){
-            //printf("Passou Aqui!");
             PtrJogador->PercursoJogador[(*i)][(*j)] = 'V';
-            //printf("Passou Aqui!");
+            push(PtrPilha,(*i),(*j));
         }else if(PtrJogador->PercursoJogador[(*i)][(*j)]== 'C'){
             PtrJogador->ChavesColetadas +=1;
             PtrJogador->PercursoJogador[(*i)][(*j)] = 'V';
         }else if(PtrJogador->PercursoJogador[(*i)][(*j)]=='X') {
             if(PtrJogador->ChavesColetadas==PtrTabuleiro->numeroChaves){
-                printf("O jogador encontrou o baú");
-                return;
+                push(PtrPilha,(*i),(*j));
+                printf("O jogador encontrou o bau!\n");
+                return 1;
             }else if(PtrJogador->ChavesColetadas!=PtrTabuleiro->numeroChaves){
-                printf("O jogador não encontrou o baú\n\n");
+                printf("O Jogador nao possui todas as chaves\n");
                 printf("Continue Procurando....\n\n");
             }
         }
-        //printf("Passou Aqui!");
         if(Direita((*i),(*j),PtrJogador)){
                     (*j) = (*j) + 1;
-                    backtraking(i,j,PtrJogador,PtrTabuleiro);
+                    backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
         }
         if(Cima((*i),(*j),PtrJogador)){
                     (*i) = (*i) -1;
-                    backtraking(i,j,PtrJogador,PtrTabuleiro);
+                    backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
         }
         if(Baixo((*i),(*j),PtrJogador)){
                     (*i) = (*i) + 1;
-                    backtraking(i,j,PtrJogador,PtrTabuleiro);
+                    backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
         }
-        //Representa um caminho Inválido
-        if(SemCaminho(*i,*j,PtrJogador)==1){
+        if(Esquerda((*i),(*j),PtrJogador)){
+            (*j) = (*j) -1;
+            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+        }
+        if(PtrJogador->PercursoJogador[*i][*j]!='X'){
             PtrJogador->PercursoJogador[*i][*j] = 'I';
-            if(Retornar((*i),(*j),PtrJogador)==1){
-                (*i) = (*i) -1;
-                backtraking(i,j,PtrJogador,PtrTabuleiro);
-            }else if(Retornar((*i),(*j),PtrJogador)==2){
-                (*j) = (*j) -1;
-                backtraking(i,j,PtrJogador,PtrTabuleiro);
-            }else if(Retornar((*i),(*j),PtrJogador)==3){
-                (*i) = (*i) +1;
-                backtraking(i,j,PtrJogador,PtrTabuleiro);
-            }else if(Retornar((*i),(*j),PtrJogador)==4){
-                (*j) = (*j) +1;
-                backtraking(i,j,PtrJogador,PtrTabuleiro);
-            }
+            pop(PtrPilha);
         }
-    } while (Retornar(*i,*j,PtrJogador)!=-1);
-    printf("O jogador nao conseguiu encontrar o tesouro\n");
+        if(VoltarCima((*i),(*j),PtrJogador)){
+            (*i) = (*i) - 1;
+            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+        }
+        if(VoltarBaixo((*i),(*j),PtrJogador)){
+            (*i) = (*i) + 1;
+            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+        }
+        if(VoltarDireita((*i),(*j),PtrJogador)){
+            (*j) = (*j) + 1;
+            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+        }
+        if(VoltarEsquerda((*i),(*j),PtrJogador)){
+            (*j) = (*j) - 1;
+            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+        }
+
+    return 0;
 }
 int Direita(int i, int j, JOGADOR *PtrJogador){
-    if(j<PtrJogador->PercursoJogadorCollun){
-        if(PtrJogador->PercursoJogador[i][j + 1] == '0' || PtrJogador->PercursoJogador[i][j + 1] == 'C'){
+    if(j<PtrJogador->PercursoJogadorCollun-1){
+        if(PtrJogador->PercursoJogador[i][j + 1] == '0' || PtrJogador->PercursoJogador[i][j + 1] == 'C'|| PtrJogador->PercursoJogador[i][j + 1] == 'X'){
             return 1;
         }
     }
@@ -89,7 +95,7 @@ int Direita(int i, int j, JOGADOR *PtrJogador){
 
 int Esquerda(int i, int j, JOGADOR *PtrJogador){
     if(j > 0){
-        if(PtrJogador->PercursoJogador[i][j - 1] == '0' || PtrJogador->PercursoJogador[i][j - 1] == 'C'){
+        if(PtrJogador->PercursoJogador[i][j - 1] == '0' || PtrJogador->PercursoJogador[i][j - 1] == 'C'|| PtrJogador->PercursoJogador[i][j -1] == 'X'){
             return 1;
         }
     }
@@ -97,8 +103,8 @@ int Esquerda(int i, int j, JOGADOR *PtrJogador){
 }
 
 int Cima(int i, int j, JOGADOR *PtrJogador){
-    if(i>0 && i < PtrJogador->PercursoJogadorLine - 1){
-        if(PtrJogador->PercursoJogador[i - 1][j] == '0' || PtrJogador->PercursoJogador[i - 1][j] == 'C'){
+    if(i>0 && i <= PtrJogador->PercursoJogadorLine - 1){
+        if(PtrJogador->PercursoJogador[i - 1][j] == '0' || PtrJogador->PercursoJogador[i - 1][j] == 'C'|| PtrJogador->PercursoJogador[i-1][j] == 'X'){
             return 1;
         }
     }
@@ -107,39 +113,83 @@ int Cima(int i, int j, JOGADOR *PtrJogador){
 
 int Baixo(int i, int j, JOGADOR *PtrJogador){
     if((i < PtrJogador->PercursoJogadorLine - 1 )){
-        if(PtrJogador->PercursoJogador[i + 1][j] == '0' || PtrJogador->PercursoJogador[i + 1][j] == 'C'){
+        if(PtrJogador->PercursoJogador[i + 1][j] == '0' || PtrJogador->PercursoJogador[i + 1][j] == 'C'|| PtrJogador->PercursoJogador[i+1][j] == 'X'){
             return 1;
         }
     }
     return 0;
 }
-
-int Retornar(int i, int j, JOGADOR *PtrJogador){
-    if (i > 0 && PtrJogador->PercursoJogador[i-1][j] == 'V') {
-        return 1;
-    } else if (j > 0 && PtrJogador->PercursoJogador[i][j-1] == 'V') {
-        return 2;
-    } else if (i < PtrJogador->PercursoJogadorLine - 1 && PtrJogador->PercursoJogador[i+1][j] == 'V') {
-        return 3;
-    } else if (j < PtrJogador->PercursoJogadorCollun - 1 && PtrJogador->PercursoJogador[i][j+1] == 'V') {
-        return 4;
-    }
-    return -1;
-}
-int SemCaminho(int i,int j,JOGADOR *PtrJogador){
-    if((j<=PtrJogador->PercursoJogadorCollun -1 && i<=PtrJogador->PercursoJogadorLine -1
-    &&((PtrJogador->PercursoJogador[i][j+1]=='V' && PtrJogador->PercursoJogador[i][j-1]!='0' &&
-    PtrJogador->PercursoJogador[i+1][j]!='0' && PtrJogador->PercursoJogador[i-1][j]!='0' ))
-    ||j<=PtrJogador->PercursoJogadorCollun -1 && i<=PtrJogador->PercursoJogadorLine -1
-    &&(PtrJogador->PercursoJogador[i][j+1]!='0' && PtrJogador->PercursoJogador[i][j-1]=='V' &&
-    PtrJogador->PercursoJogador[i+1][j]!='0' && PtrJogador->PercursoJogador[i-1][j]!='0' )
-    ||j<=PtrJogador->PercursoJogadorCollun -1 && i<=PtrJogador->PercursoJogadorLine -1
-    &&(PtrJogador->PercursoJogador[i][j+1]!='0' && PtrJogador->PercursoJogador[i][j-1]!='0' &&
-    PtrJogador->PercursoJogador[i+1][j]=='V' && PtrJogador->PercursoJogador[i-1][j]!='0' )||
-    j<=PtrJogador->PercursoJogadorCollun -1 && i<=PtrJogador->PercursoJogadorLine -1
-    &&(PtrJogador->PercursoJogador[i][j+1]!='0' && PtrJogador->PercursoJogador[i][j-1]!='0' &&
-    PtrJogador->PercursoJogador[i+1][j]!='0' && PtrJogador->PercursoJogador[i-1][j]=='V' ))){
-        return 1;
+int VoltarDireita(int i,int j,JOGADOR *PtrJogador){
+    if(j<PtrJogador->PercursoJogadorCollun - 1){
+        if(j>0 && i>0 && i<PtrJogador->PercursoJogadorLine-1){
+            if(PtrJogador->PercursoJogador[i][j-1]!='V'&&PtrJogador->PercursoJogador[i-1][j]!='V' && PtrJogador->PercursoJogador[i][j+1]=='V' && PtrJogador->PercursoJogador[i+1][j]!='V'){
+                return 1;
+            }
+        }else if(i>0 && i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i][j+1]=='C' ||PtrJogador->PercursoJogador[i][j+1]=='V')&&PtrJogador->PercursoJogador[i+1][j]=='V' && PtrJogador->PercursoJogador[i-1][j]!='V'){
+                return 1;
+            }
+        }else if(i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i][j+1]=='C' ||PtrJogador->PercursoJogador[i][j+1]=='V') &&PtrJogador->PercursoJogador[i+1][j]!='V'){
+                return 1;
+            }
+        }
     }
     return 0;
 }
+int VoltarEsquerda(int i,int j,JOGADOR *PtrJogador){
+    if(j>0){
+        if(j<PtrJogador->PercursoJogadorCollun - 1 && i>0 && i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i][j-1]=='C' ||PtrJogador->PercursoJogador[i][j-1]=='V')&&PtrJogador->PercursoJogador[i-1][j]!='V' && PtrJogador->PercursoJogador[i][j+1]!='V' && PtrJogador->PercursoJogador[i+1][j]!='V'){
+                return 1;
+            }
+        }else if(i>0 && i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i][j-1]=='C' ||PtrJogador->PercursoJogador[i][j-1]=='V')&&PtrJogador->PercursoJogador[i-1][j]!='V' && PtrJogador->PercursoJogador[i][j-1]!='V'){
+                return 1;
+            }
+        }else if(i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i][j-1]=='C' ||PtrJogador->PercursoJogador[i][j-1]=='V')&&PtrJogador->PercursoJogador[i-1][j]!='V'){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int VoltarCima(int i,int j,JOGADOR *PtrJogador){
+    if(i>0){
+        if(j<0 && j<PtrJogador->PercursoJogadorCollun-1 && i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i-1][j]=='C' ||PtrJogador->PercursoJogador[i-1][j]=='V')&& PtrJogador->PercursoJogador[i][j-1]!='V' && PtrJogador->PercursoJogador[i][j+1]!='V' && PtrJogador->PercursoJogador[i+1][j]!='V'){
+                return 1;
+            }
+        }else if(j<PtrJogador->PercursoJogadorCollun-1 && i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i-1][j]=='C' ||PtrJogador->PercursoJogador[i-1][j]=='V')&& PtrJogador->PercursoJogador[i][j+1]!='V' && PtrJogador->PercursoJogador[i+1][j]!='V'){
+                return 1;
+            }
+        }else if(i<PtrJogador->PercursoJogadorLine-1){
+            if((PtrJogador->PercursoJogador[i-1][j]=='C' ||PtrJogador->PercursoJogador[i-1][j]=='V')&&PtrJogador->PercursoJogador[i+1][j]!='V'){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+int VoltarBaixo(int i,int j,JOGADOR *PtrJogador){
+    if(i<PtrJogador->PercursoJogadorLine-1){
+        if(i>0 && j> 0 && j<PtrJogador->PercursoJogadorCollun - 1){
+            if((PtrJogador->PercursoJogador[i+1][j]=='C' ||PtrJogador->PercursoJogador[i+1][j]=='V')&&PtrJogador->PercursoJogador[i-1][j]!='V' && PtrJogador->PercursoJogador[i][j+1]!='V' && PtrJogador->PercursoJogador[i][j-1]){
+                return 1;
+            }
+        }else if(j> 0 && j<PtrJogador->PercursoJogadorCollun - 1){
+            if((PtrJogador->PercursoJogador[i+1][j]=='C' ||PtrJogador->PercursoJogador[i+1][j]=='V')&&PtrJogador->PercursoJogador[i][j+1]!='V' && PtrJogador->PercursoJogador[i][j-1]!='V'){
+                return 1;
+            }
+        }else if(j<PtrJogador->PercursoJogadorCollun - 1){
+            if((PtrJogador->PercursoJogador[i+1][j]=='C' ||PtrJogador->PercursoJogador[i+1][j]=='V')&&PtrJogador->PercursoJogador[i][j+1]!='V'){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
