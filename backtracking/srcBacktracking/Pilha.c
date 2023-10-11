@@ -1,4 +1,6 @@
-#include "C:\Users\mathe\Documents\CC++\C\Proprios\Trabalhos_PAA\TP1\.h\Pilha.h"
+#include "../headersBacktracking/Pilha.h"
+
+
 void initialize(PilhaCoordenadas* ptr) {
     ptr->topo = NULL;
 }

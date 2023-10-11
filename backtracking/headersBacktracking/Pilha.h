@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+
 typedef struct Coordenadas {
     int line, collun;
     struct Coordenadas* next;
