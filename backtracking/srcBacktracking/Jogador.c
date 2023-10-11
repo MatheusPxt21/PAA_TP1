@@ -1,5 +1,10 @@
+<<<<<<< HEAD:backtracking/srcBacktracking/Jogador.c
 #include "../headersBacktracking/Jogador.h"
 
+=======
+#include "../headersBacktracking/Jogador.h"
+#define Teste 10000;
+>>>>>>> main:backtracking/.c/Jogador.c
 void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
     PtrJogador->ChavesColetadas = 0;
     PtrJogador->JogadorLine = PtrJogador->JogadorCollun = 0;
@@ -15,72 +20,78 @@ void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
         }
     }
 }
+<<<<<<< HEAD:backtracking/srcBacktracking/Jogador.c
 void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro, PilhaCoordenadas *PtrPilha){
+=======
+void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
+    int control = 0;
+>>>>>>> main:backtracking/.c/Jogador.c
     int line = PtrJogador->JogadorLine;
     int collun = PtrJogador->JogadorCollun;
     initialize(PtrPilha);
-    backtraking(&line,&collun,PtrJogador,PtrTabuleiro,PtrPilha);
+    //PilhaCoordenadas vetor;
+    if(backtraking(&control,&line,&collun,PtrJogador,PtrTabuleiro,PtrPilha)==1) {
+        ApresentarCoordenadas(PtrPilha);
+        control = 0;
+    }
 }
-//Colocar função para verificar se tem apenas uma via,bloqueado por 3 lados
-int backtraking(int *i,int *j,JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
-    //for (int x = 0; x < PtrTabuleiro->lineMatriz; x++) {
-        //for(int y = 0;y< PtrTabuleiro->collunMatriz;y++){
-          //  printf("%c ",PtrJogador->PercursoJogador[x][y]);
-        //}
-      //  printf("\n");
-    //}
-        if(PtrJogador->PercursoJogador[(*i)][(*j)] == '0'){
-            PtrJogador->PercursoJogador[(*i)][(*j)] = 'V';
-            push(PtrPilha,(*i),(*j));
-        }else if(PtrJogador->PercursoJogador[(*i)][(*j)]== 'C'){
-            PtrJogador->ChavesColetadas +=1;
-            PtrJogador->PercursoJogador[(*i)][(*j)] = 'V';
-        }else if(PtrJogador->PercursoJogador[(*i)][(*j)]=='X') {
-            if(PtrJogador->ChavesColetadas==PtrTabuleiro->numeroChaves){
-                push(PtrPilha,(*i),(*j));
-                printf("O jogador encontrou o bau!\n");
-                return 1;
-            }else if(PtrJogador->ChavesColetadas!=PtrTabuleiro->numeroChaves){
-                printf("O Jogador nao possui todas as chaves\n");
-                printf("Continue Procurando....\n\n");
-            }
+int backtraking(int *control,int *i,int *j,JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
+    if(PtrJogador->PercursoJogador[(*i)][(*j)] == '0'){
+        PtrJogador->PercursoJogador[(*i)][(*j)] = 'V';
+        push(PtrPilha,(*i),(*j));
+    }else if(PtrJogador->PercursoJogador[(*i)][(*j)]== 'C'){
+        PtrJogador->ChavesColetadas +=1;
+        PtrJogador->PercursoJogador[(*i)][(*j)] = 'V';
+        push(PtrPilha,(*i),(*j));
+    }else if(PtrJogador->PercursoJogador[(*i)][(*j)]=='X'){
+        if(PtrJogador->ChavesColetadas==PtrTabuleiro->numeroChaves){
+            push(PtrPilha,PtrTabuleiro->lineTesouro,PtrTabuleiro->collunTesouro);
+            ApresentarCoordenadas(PtrPilha);
+            *control = 1;
+            return 1;
+        }else if(PtrJogador->ChavesColetadas!=PtrTabuleiro->numeroChaves){
+            printf("O Jogador nao possui todas as chaves\n");
+            printf("Continue Procurando....\n\n");
         }
-        if(Direita((*i),(*j),PtrJogador)){
-                    (*j) = (*j) + 1;
-                    backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(Cima((*i),(*j),PtrJogador)){
-                    (*i) = (*i) -1;
-                    backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(Baixo((*i),(*j),PtrJogador)){
-                    (*i) = (*i) + 1;
-                    backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(Esquerda((*i),(*j),PtrJogador)){
-            (*j) = (*j) -1;
-            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(PtrJogador->PercursoJogador[*i][*j]!='X'){
-            PtrJogador->PercursoJogador[*i][*j] = 'I';
-            pop(PtrPilha);
-        }
-        if(VoltarCima((*i),(*j),PtrJogador)){
-            (*i) = (*i) - 1;
-            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(VoltarBaixo((*i),(*j),PtrJogador)){
-            (*i) = (*i) + 1;
-            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(VoltarDireita((*i),(*j),PtrJogador)){
-            (*j) = (*j) + 1;
-            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
-        if(VoltarEsquerda((*i),(*j),PtrJogador)){
-            (*j) = (*j) - 1;
-            backtraking(i,j,PtrJogador,PtrTabuleiro,PtrPilha);
-        }
+    }
+    //Coordenadas* PtrVar = PtrPilha->topo;
+    //printf("PASSA AQUI! [%d][%d] \n",PtrVar->collun ,PtrVar->line);
+    if(Direita((*i),(*j),PtrJogador) && *control !=1){
+        (*j) = (*j) + 1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(Cima((*i),(*j),PtrJogador) && *control !=1){
+        (*i) = (*i) -1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(Baixo((*i),(*j),PtrJogador) && *control !=1){
+        (*i) = (*i) + 1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(Esquerda((*i),(*j),PtrJogador) && *control !=1){
+        (*j) = (*j) -1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(PtrJogador->PercursoJogador[*i][*j]!='X' && *control !=1){
+        PtrJogador->PercursoJogador[*i][*j] = 'I';
+        pop(PtrPilha);
+    }
+    if(VoltarCima((*i),(*j),PtrJogador) && *control !=1){
+        (*i) = (*i) - 1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(VoltarBaixo((*i),(*j),PtrJogador) && *control !=1){
+        (*i) = (*i) + 1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(VoltarDireita((*i),(*j),PtrJogador)&& *control !=1){
+        (*j) = (*j) + 1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
+    if(VoltarEsquerda((*i),(*j),PtrJogador)&& *control !=1){
+        (*j) = (*j) - 1;
+        backtraking(control,i,j,PtrJogador,PtrTabuleiro,PtrPilha);
+    }
 
     return 0;
 }

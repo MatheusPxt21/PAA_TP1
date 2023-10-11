@@ -1,10 +1,6 @@
 #include "../../LeituraArquivo/headers/FunctionsArquivo.h"
 #include "../headersBacktracking/Pilha.h"
-
-
 #include <stdbool.h>
-
-
 typedef struct JOGADOR{
     int ChavesColetadas,JogadorCollun,JogadorLine,PercursoJogadorLine,PercursoJogadorCollun;
     char **PercursoJogador;
