@@ -1,4 +1,4 @@
-#include "C:\Users\mathe\Documents\CC++\C\Proprios\Trabalhos_PAA\TP1\.h\Jogador.h"
+#include "../headersBacktracking/Jogador.h"
 
 void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
     PtrJogador->ChavesColetadas = 0;
@@ -15,7 +15,7 @@ void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
         }
     }
 }
-void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
+void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro, PilhaCoordenadas *PtrPilha){
     int line = PtrJogador->JogadorLine;
     int collun = PtrJogador->JogadorCollun;
     initialize(PtrPilha);

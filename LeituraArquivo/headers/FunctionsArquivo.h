@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 typedef struct MATRIZTABULEIRO{
     int lineMatriz,collunMatriz,lineTesouro,collunTesouro;
     int numeroChaves;
