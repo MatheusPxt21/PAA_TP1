@@ -1,4 +1,6 @@
 #include "../headers/FunctionsArquivo.h"
+#include "../../Cores/cores.h"
+
 //FuncoesArquivo
 
 int main(void){
@@ -6,7 +8,7 @@ int main(void){
     ReceberArquivo("ArquivosTexto/ExemploDoc.txt",&Ptr);
     for (int i = 0; i < Ptr.lineMatriz; i++) {
         for(int j = 0;j< Ptr.collunMatriz;j++){
-            printf("%c ",Ptr.MatrizJogo[i][j]);
+            printf("%s %s %c %s", B_WHITE, CYAN, Ptr.MatrizJogo[i][j], RESET);
         }
         printf("\n");
     }
