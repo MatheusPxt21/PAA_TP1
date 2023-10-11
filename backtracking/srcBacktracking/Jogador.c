@@ -1,10 +1,7 @@
-<<<<<<< HEAD:backtracking/srcBacktracking/Jogador.c
 #include "../headersBacktracking/Jogador.h"
 
-=======
-#include "../headersBacktracking/Jogador.h"
 #define Teste 10000;
->>>>>>> main:backtracking/.c/Jogador.c
+
 void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
     PtrJogador->ChavesColetadas = 0;
     PtrJogador->JogadorLine = PtrJogador->JogadorCollun = 0;
@@ -20,12 +17,10 @@ void InicializaJogador(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro){
         }
     }
 }
-<<<<<<< HEAD:backtracking/srcBacktracking/Jogador.c
-void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro, PilhaCoordenadas *PtrPilha){
-=======
+
 void movimentar(JOGADOR *PtrJogador,MATRIZTABULEIRO *PtrTabuleiro,PilhaCoordenadas *PtrPilha){
     int control = 0;
->>>>>>> main:backtracking/.c/Jogador.c
+
     int line = PtrJogador->JogadorLine;
     int collun = PtrJogador->JogadorCollun;
     initialize(PtrPilha);
