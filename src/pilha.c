@@ -56,6 +56,7 @@ int desempilha_PILHA(TIPO_PILHA** stack)
 void imprimir_PILHA(TIPO_PILHA* stack)
 {
 /*
+    
     TIPO_PILHA* cord = stack->posicaoMatriz;
     
     printf("\n %d || %d \n", stack->posicaoMatriz.coord_linha, stack->posicaoMatriz.coord_coluna);

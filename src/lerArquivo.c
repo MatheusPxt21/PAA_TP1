@@ -62,7 +62,7 @@ void imprimeMatriz(TIPO_MATRIZ matriz)
 
     for(int i = 0; i < matriz.mat_LINHAS; i++){
         printf("\t");
-    
+        
         for(int j = 0; j < matriz.mat_COLUNAS; j++){
             if(matriz.mat_CONTEUDO[i][j] == '0'){
                 printf("[%s%c%s] ", GREEN, matriz.mat_CONTEUDO[i][j], RESET);
