@@ -1,13 +1,19 @@
-#include "Headers/lerArquivo.h"
-#include "Headers/auxiliares.h"
+//#include "Headers/lerArquivo.h"
+#include "Headers/jogador.h"
+//#include "Headers/auxiliares.h"
 
 int main(){
 
-    TIPO_MATRIZ matrix = lerMatrizArquivo("ArquivosTeste/ExemploDoc.txt");
+    Jogador PtrJogador;
+    TIPO_PILHA PtrPilha;
+    TIPO_MATRIZ matrix = lerMatrizArquivo("ArquivosTeste/Exemplo02.txt");
 
     imprimeMatriz(matrix);
 
-    menu();
+    inicializarJogador(&PtrJogador,matrix);
+    Movimentar(&PtrJogador,matrix,&PtrPilha);
+
+    //menu();
 
     return 0;
 }

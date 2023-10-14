@@ -40,7 +40,7 @@ int empilha_PILHA(TIPO_PILHA** stack, int linha, int coluna)
 int desempilha_PILHA(TIPO_PILHA** stack)
 {
 
-    if (isEmpty(stack)) {
+    if (estaVazia_PILHA(stack)) {
         printf("\n %sErro ao remover: Pilha vazia%s \n", B_RED, RESET);
         return 0;
     }
@@ -53,26 +53,33 @@ int desempilha_PILHA(TIPO_PILHA** stack)
 
 }
 
-void imprimir_PILHA(TIPO_PILHA* stack)
-{
-/*
-    
-    TIPO_PILHA* cord = stack->posicaoMatriz;
-    
-    printf("\n %d || %d \n", stack->posicaoMatriz.coord_linha, stack->posicaoMatriz.coord_coluna);
-    while(cord != NULL){
-        if(cord->posicaoMatriz.coord_linha != 0){
-            printf("\n %d || %d \n", cord->posicaoMatriz.coord_linha, cord->posicaoMatriz.coord_coluna);
-        }
+void imprimir_PILHA(TIPO_PILHA* stack) {
+    TIPO_PILHA* cord = stack;
 
+    printf("\nElementos na pilha:\n");
+    while(cord != NULL) {
+        printf("(%d, %d)\n", cord->posicaoMatriz.coord_linha, cord->posicaoMatriz.coord_coluna);
         cord = cord->ptrProx;
     }
-*/
 }
+
 
 void free_PILHA(TIPO_PILHA *stack)
 {
     if(stack != NULL){
         free(stack);
     }
+}
+void inicializa_VetorPilhas(VetorPilhas* vetorPilhas, int tamanho) {
+    vetorPilhas->num_pilhas = 0;
+    vetorPilhas->pilhas = (TIPO_PILHA**)malloc(tamanho * sizeof(TIPO_PILHA*));
+    for (int i = 0; i < tamanho; ++i) {
+        vetorPilhas->pilhas[i] = NULL;
+    }
+}
+
+void insere_Pilha(VetorPilhas* vetorPilhas, TIPO_PILHA* novaPilha) {
+    vetorPilhas->num_pilhas++;
+    vetorPilhas->pilhas = (TIPO_PILHA**)realloc(vetorPilhas->pilhas, vetorPilhas->num_pilhas * sizeof(TIPO_PILHA*));
+    vetorPilhas->pilhas[vetorPilhas->num_pilhas - 1] = novaPilha;
 }

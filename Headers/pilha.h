@@ -12,6 +12,12 @@ typedef struct TIPO_PILHA {
     int tamPilha;
 } TIPO_PILHA;
 
+typedef struct {
+    TIPO_PILHA** pilhas;
+    int num_pilhas;
+} VetorPilhas;
+
+
 void inicializa_PILHA(TIPO_PILHA** stack);
 
 int estaVazia_PILHA(TIPO_PILHA** stack);
@@ -23,3 +29,7 @@ int desempilha_PILHA(TIPO_PILHA** stack);
 void imprimir_PILHA(TIPO_PILHA* stack);
 
 void free_PILHA(TIPO_PILHA *stack);
+
+void inicializa_VetorPilhas(VetorPilhas* vetorPilhas, int tamanho);
+
+void insere_Pilha(VetorPilhas* vetorPilhas, TIPO_PILHA* novaPilha);

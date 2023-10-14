@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "../Headers/cores.h"
+#include "cores.h"
 
 typedef struct{
 
