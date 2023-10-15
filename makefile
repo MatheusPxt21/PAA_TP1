@@ -5,3 +5,6 @@ Linux:
 	./a.out
 Windows:
 	./a.exe
+
+t:
+	gcc testeGeraMatriz.c Headers/lerArquivo.h src/lerArquivo.c
