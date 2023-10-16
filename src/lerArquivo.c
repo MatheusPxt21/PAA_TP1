@@ -56,6 +56,65 @@ TIPO_MATRIZ lerMatrizArquivo(const char *arqEntrada)
     return mat;
 }
 
+TIPO_MATRIZ geraMatrizAleatoria(int linhas, int colunas)
+{
+    TIPO_MATRIZ mat = criaMatriz(linhas, colunas);
+
+    int totalElementos = linhas * colunas;
+    // as chaves não serão mais do que 5% + 1 do total de elementos
+    int totalChaves = (int)(totalElementos * 0.05) + 1;
+    int contaChaves = 0;
+
+    /*
+      define aleatoriamente a linha e coluna para X,
+      não podendo ser 0 para não coincidir com a posição inicial
+    */
+    int Tesouro_Linha = rand()%linhas + 1;
+    int Tesouro_Coluna = rand()%colunas + 1;
+
+    int numAleatorio;
+
+    //preencher matriz
+    for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < colunas; j++){
+            numAleatorio = rand()%3;
+
+            switch (numAleatorio) {
+                case 0:
+                    mat.mat_CONTEUDO[i][j] = '0';
+                    break;
+                case 1:
+                    mat.mat_CONTEUDO[i][j] = '1';
+                    break;
+                case 2:
+                    if((contaChaves < totalChaves) && (i != 0 && j != 0)){
+                        mat.mat_CONTEUDO[i][j] = 'C';
+                        contaChaves++;
+                    }else{
+                        mat.mat_CONTEUDO[i][j] = '0';
+                    }
+                    break;
+                default:
+                    mat.mat_CONTEUDO[i][j] = '1';
+                    break;
+            }
+
+        }
+    }
+
+    //define a posição inicial como válida
+    mat.mat_CONTEUDO[0][0] = '0';
+    mat.mat_CONTEUDO[Tesouro_Linha][Tesouro_Coluna] = 'X';
+
+    mat.mat_tesouroX = Tesouro_Linha;
+    mat.mat_tesouroY = Tesouro_Coluna;
+    mat.mat_CHAVES = contaChaves;
+
+
+    return mat;
+}
+
+
 void imprimeMatriz(TIPO_MATRIZ matriz)
 {
     printf("\n\n");
