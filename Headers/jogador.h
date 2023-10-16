@@ -28,9 +28,11 @@ typedef struct Jogador{
 }Jogador;
 
 void inicializarJogador(Jogador *Ptr,TIPO_MATRIZ Var_TipoMatriz);
-void Movimentar(Jogador *Ptr,TIPO_MATRIZ Var_TipoMatriz,TIPO_PILHA *pilha);
-int backtracking(Jogador *Ptr,TIPO_MATRIZ Var_TipoMatriz,int *i,int *j,TIPO_PILHA *pilha,int *I_Ramificacao,int *J_Ramificacao);
+void Movimentar(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,PilhaCoordenadas *pilha,PilhaCoordenadas *pilhaChaves);
+int backtracking(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,int *i,int *j,PilhaCoordenadas *pilhaChaves,PilhaCoordenadas *pilha,int *I_Ramificacao,int *J_Ramificacao,int *control);
 void DeterminaDirecoes(Jogador *Ptr,int i,int j);
 int ExisteRamificacao(Jogador *Ptr,int i,int j);
+int LimparMatrizChaves(Jogador *Ptr,PilhaCoordenadas *pilhaChaves);
+int LimparMatriz(Jogador *Ptr,PilhaCoordenadas *pilha,int *I_Ramificacao,int *J_Ramificacao);
 void Printar(Jogador *Ptr);
 //int ExisteBifurcacao(Jogador *Ptr,int i,int j);
