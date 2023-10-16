@@ -7,12 +7,13 @@ int main(){
     Jogador PtrJogador;
     PilhaCoordenadas PtrPilha;
     PilhaCoordenadas PtrPilhaChaves;
-    TIPO_MATRIZ matrix = lerMatrizArquivo("ArquivosTeste/ExemploDoc.txt");
+    PilhaRamificado PtrRamificado;
+    TIPO_MATRIZ matrix = lerMatrizArquivo("ArquivosTeste/Exemplo02.txt");
 
     imprimeMatriz(matrix);
 
     inicializarJogador(&PtrJogador,matrix);
-    Movimentar(&PtrJogador,&matrix,&PtrPilha,&PtrPilhaChaves);
+    Movimentar(&PtrJogador,&matrix,&PtrPilha,&PtrPilhaChaves,&PtrRamificado);
     printf("[Caminhos Encontrados: %d] \n",matrix.qtdRotas);
 
     //menu();

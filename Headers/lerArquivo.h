@@ -18,8 +18,6 @@ TIPO_MATRIZ criaMatriz(int linhas, int colunas);
 
 TIPO_MATRIZ lerMatrizArquivo(const char *arqEntrada);
 
-TIPO_MATRIZ geraMatrizAleatoria(int linhas, int colunas);
-
 void imprimeMatriz(TIPO_MATRIZ matriz);
 
 void freeMatriz(TIPO_MATRIZ matriz);
