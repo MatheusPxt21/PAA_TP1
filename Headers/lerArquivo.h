@@ -22,4 +22,4 @@ void imprimeMatriz(TIPO_MATRIZ matriz);
 
 void freeMatriz(TIPO_MATRIZ matriz);
 
-
+TIPO_MATRIZ geraMatrizAleatoria(int linhas, int colunas);

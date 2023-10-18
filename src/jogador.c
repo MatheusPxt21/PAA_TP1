@@ -102,7 +102,7 @@ void  Movimentar(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,PilhaCoordenadas *pilh
 }
 
 int backtracking(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,int *i,int *j,PilhaCoordenadas *pilhaChaves,PilhaCoordenadas *pilha,int *I_Ramificacao,int *J_Ramificacao,int *control,PilhaRamificado *pilhaRamificacao){
-    //Printar(Ptr);
+    Printar(Ptr);
     //printf("Chaves Coletadas: %d\n",Ptr->ChavesColetadas);
     DeterminaDirecoes(Ptr,*i,*j);
 
@@ -131,8 +131,9 @@ int backtracking(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,int *i,int *j,PilhaCoo
             *I_Ramificacao = *i;
             *J_Ramificacao = *j;
             pushRamificacao(pilhaRamificacao,*I_Ramificacao,*J_Ramificacao);
-            //printf("Ramificacoes: \n");
-            //ApresentarRamificacao(pilhaRamificacao);
+            printf("Ramificacoes: \n");
+            ApresentarRamificacao(pilhaRamificacao);
+            printf("[%d %d]--Antes do Backtracking: %d %d %d %d \n",pilhaRamificacao->topo->Ramificado_Linha,pilhaRamificacao->topo->Ramificado_Coluna,pilhaRamificacao->topo->RamificadoEsquerda,pilhaRamificacao->topo->RamificadoDireita,pilhaRamificacao->topo->RamificadoCima,pilhaRamificacao->topo->RamificadoBaixo);
 
             //Uma ramificação foi indentificada
             // Lógica para lidar com bifurcações.
@@ -236,6 +237,7 @@ int backtracking(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,int *i,int *j,PilhaCoo
                     LimparMatriz(Ptr,pilha,pilhaChaves,I_Ramificacao,J_Ramificacao);
                 }
             }
+            printf("[%d %d]--Antes do Backtracking: %d %d %d %d \n",pilhaRamificacao->topo->Ramificado_Linha,pilhaRamificacao->topo->Ramificado_Coluna,pilhaRamificacao->topo->RamificadoEsquerda,pilhaRamificacao->topo->RamificadoDireita,pilhaRamificacao->topo->RamificadoCima,pilhaRamificacao->topo->RamificadoBaixo);
             if(estaVazioRamificacao(pilhaRamificacao)==0){
                 popRamificacao(pilhaRamificacao);
                 LimparMatriz(Ptr,pilha,pilhaChaves,I_Ramificacao,J_Ramificacao);
