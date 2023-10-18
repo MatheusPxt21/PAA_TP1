@@ -32,7 +32,6 @@ void Movimentar(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,PilhaCoordenadas *pilha
 int backtracking(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,int *i,int *j,PilhaCoordenadas *pilhaChaves,PilhaCoordenadas *pilha,int *I_Ramificacao,int *J_Ramificacao,int *control,PilhaRamificado *pilhaRamificacao);
 void DeterminaDirecoes(Jogador *Ptr,int i,int j);
 int ExisteRamificacao(Jogador *Ptr,int i,int j);
-int LimparMatrizChaves(Jogador *Ptr,PilhaCoordenadas *pilhaChaves,int I_Ramificacao,int J_Ramificacao);
-int LimparMatriz(Jogador *Ptr,PilhaCoordenadas *pilha,int *I_Ramificacao,int *J_Ramificacao);
+int EstaPresentePilhaChaves(Jogador *Ptr,PilhaCoordenadas *pilhaChaves,int line,int collun);
+int LimparMatriz(Jogador *Ptr,PilhaCoordenadas *pilha,PilhaCoordenadas *pilhachaves,int *I_Ramificacao,int *J_Ramificacao);
 void Printar(Jogador *Ptr);
-//int ExisteBifurcacao(Jogador *Ptr,int i,int j);

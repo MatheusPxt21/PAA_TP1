@@ -55,4 +55,21 @@ void ApresentarRamificacao(PilhaRamificado *ptr){
     }
 
 }
+
+int EstaPresentePilhaRamificado(PilhaRamificado *ptr, int line, int collun) {
+    CaminhoRamificado *temp = ptr->topo;
+
+    // Percorre a pilha e compara as coordenadas
+    while (temp != NULL) {
+        if (temp->Ramificado_Linha == line && temp->Ramificado_Coluna == collun) {
+            printf("Elemento (%d, %d) encontrado na pilha.\n", line, collun);
+            return 1;
+        }
+        temp = temp->prox;
+    }
+
+    printf("Elemento (%d, %d) nao encontrado na pilha.\n", line, collun);
+    return 0;
+}
+
 void LiberarRamificacao(PilhaRamificado *ptr);

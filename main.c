@@ -1,6 +1,4 @@
-//#include "Headers/lerArquivo.h"
 #include "Headers/jogador.h"
-//#include "Headers/auxiliares.h"
 
 int main(){
 
@@ -8,13 +6,18 @@ int main(){
     PilhaCoordenadas PtrPilha;
     PilhaCoordenadas PtrPilhaChaves;
     PilhaRamificado PtrRamificado;
-    TIPO_MATRIZ matrix = lerMatrizArquivo("ArquivosTeste/Exemplo02.txt");
+    TIPO_MATRIZ matrix = lerMatrizArquivo("ArquivosTeste/ExemploDOC.txt");
 
     imprimeMatriz(matrix);
 
     inicializarJogador(&PtrJogador,matrix);
     Movimentar(&PtrJogador,&matrix,&PtrPilha,&PtrPilhaChaves,&PtrRamificado);
-    printf("[Caminhos Encontrados: %d] \n",matrix.qtdRotas);
+    if(matrix.qtdRotas!=0){
+        printf("[Caminhos Encontrados: %d] \n",matrix.qtdRotas);
+    }else{
+        printf("O Jogador Nao Conseguiu Encontrar o Bau!\n");
+    }
+
 
     //menu();
 
