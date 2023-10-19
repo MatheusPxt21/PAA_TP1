@@ -53,6 +53,7 @@ TIPO_MATRIZ lerMatrizArquivo(const char *arqEntrada)
     mat.mat_tesouroX = t_X;
     mat.mat_tesouroY = t_Y;
     mat.qtdRotas = 0;
+    imprimeMatriz(mat);
 
     return mat;
 }

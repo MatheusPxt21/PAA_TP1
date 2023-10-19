@@ -7,7 +7,8 @@ void menu() {
     PilhaCoordenadas PtrPilhaChaves;
     PilhaRamificado PtrRamificado;
     TIPO_MATRIZ matrix;
-    int resposta = 0,COLUNA,LINHA;
+    FilaPilhas filaPilhas;
+    int Saida,resposta = 0,COLUNA,LINHA;
 
     char nomeArq[20];
 
@@ -33,10 +34,21 @@ void menu() {
                 matrix = lerMatrizArquivo(nomeArq);
                 inicializarJogador(&PtrJogador, matrix);
                 //printf("Caminhos Possiveis: \n");
-                Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado);
+                Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
 
                 if (matrix.qtdRotas != 0) {
+                    printf("Tesouro Encontrado!\n");
                     printf("[Caminhos Encontrados: %d]\n", matrix.qtdRotas);
+                    printf("Qual a saida desejada? \n");
+                    printf("[1] -> Apresentar Melhor Saida\n");
+                    printf("[2] -> Apresentar Todas as Saidas Disponiveis\n");
+                    scanf("%d",&Saida);
+                    if(Saida==1){
+                        pilhaComMenorQtd(&filaPilhas);
+                    }else if(Saida==2){
+                        imprimirFilaPilhas(&filaPilhas);
+                    }
+
                 } else {
                     printf("O Jogador Não Conseguiu Encontrar o Baú!\n");
                 }
@@ -48,10 +60,19 @@ void menu() {
                 imprimeMatriz(matrix);
                 inicializarJogador(&PtrJogador, matrix);
                 //printf("Caminhos Possiveis: \n");
-                printf("[Caminhos Encontrados: %d]\n", matrix.qtdRotas);
-                Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado);
+                Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
                 if (matrix.qtdRotas != 0) {
+                    printf("Tesouro Encontrado!\n");
                     printf("[Caminhos Encontrados: %d]\n", matrix.qtdRotas);
+                    printf("Qual a saida desejada? \n");
+                    printf("[1] -> Apresentar Melhor Saida\n");
+                    printf("[2] -> Apresentar Todas as Saidas Disponiveis\n");
+                    scanf("%d",&Saida);
+                    if(Saida==1){
+                        pilhaComMenorQtd(&filaPilhas);
+                    }else if(Saida==2){
+                        imprimirFilaPilhas(&filaPilhas);
+                    }
                 } else {
                     printf("O Jogador Não Conseguiu Encontrar o Baú!\n");
                 }
@@ -59,7 +80,7 @@ void menu() {
                 break;
             case 3:
                 printf("\n\t%sSaindo do programa... %s\n\n\n", RED, RESET);
-                break;
+                exit(1);
 
             default:
                 printf("\n\t%sValor desconhecido, tente novamente... %s\n\n\n", YELLOW, RESET);
