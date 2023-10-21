@@ -108,8 +108,8 @@ TIPO_MATRIZ geraMatrizAleatoria(int linhas, int colunas)
       define aleatoriamente a linha e coluna para X,
       não podendo ser 0 para não coincidir com a posição inicial
     */
-    int Tesouro_Linha = rand()%linhas + 1;
-    int Tesouro_Coluna = rand()%colunas + 1;
+    int Tesouro_Linha = rand()%linhas;
+    int Tesouro_Coluna = rand()%colunas;
 
     int numAleatorio;
 
@@ -143,6 +143,10 @@ TIPO_MATRIZ geraMatrizAleatoria(int linhas, int colunas)
 
     //define a posição inicial como válida
     mat.mat_CONTEUDO[0][0] = '0';
+    if(Tesouro_Linha ==0 && Tesouro_Coluna == 0){
+        Tesouro_Linha +=1;
+        Tesouro_Coluna +=1;
+    }
     mat.mat_CONTEUDO[Tesouro_Linha][Tesouro_Coluna] = 'X';
 
     mat.mat_tesouroX = Tesouro_Linha;
