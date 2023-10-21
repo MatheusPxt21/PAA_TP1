@@ -1,0 +1,3 @@
+/home/matheuspeixoto/Área de Trabalho/TP-PAA/cmake-build-debug/CMakeFiles/TP_PAA.dir
+/home/matheuspeixoto/Área de Trabalho/TP-PAA/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/matheuspeixoto/Área de Trabalho/TP-PAA/cmake-build-debug/CMakeFiles/rebuild_cache.dir

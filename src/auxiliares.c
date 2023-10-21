@@ -10,7 +10,7 @@ void menu() {
     FilaPilhas filaPilhas;
     int Saida,resposta = 0,COLUNA,LINHA;
 
-    char nomeArq[20];
+    char nomeArq;
 
     while (resposta != 2) {
         printf("\n\t %s%s            Indiana Jones             %s", B_YELLOW, GREEN, RESET);
@@ -29,9 +29,11 @@ void menu() {
             case 1:
                 printf("Insira o nome do arquivo que deseja testar: \n");
                 printf("É necessário que este arquivo se encontre na pasta ArquivosTeste.\n");
-                scanf("%s", nomeArq);
+                //scanf("%s", nomeArq);
 
-                matrix = lerMatrizArquivo(nomeArq);
+                strcpy(&nomeArq, "ExemploDoc.txt");
+
+                matrix = lerMatrizArquivo(&nomeArq);
                 inicializarJogador(&PtrJogador, matrix);
                 //printf("Caminhos Possiveis: \n");
                 Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);

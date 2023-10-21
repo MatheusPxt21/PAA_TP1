@@ -16,7 +16,7 @@ typedef struct{
 
 TIPO_MATRIZ criaMatriz(int linhas, int colunas);
 
-TIPO_MATRIZ lerMatrizArquivo(const char *arqEntrada);
+TIPO_MATRIZ lerMatrizArquivo(char *arqEntrada);
 
 void imprimeMatriz(TIPO_MATRIZ matriz);
 
