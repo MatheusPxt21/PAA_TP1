@@ -19,7 +19,7 @@ TIPO_MATRIZ criaMatriz(int linhas, int colunas)
 
 TIPO_MATRIZ lerMatrizArquivo(char *arqEntrada)
 {
-    FILE *file = fopen("/home/matheuspeixoto/Área de Trabalho/TP-PAA/ArquivosTeste/Exemplo06.txt", "r");
+    FILE *file = fopen("/home/matheuspeixoto/Área de Trabalho/TP-PAA/ArquivosTeste/ExemploDoc.txt", "r");
     if(file == NULL){
         perror("Erro ao abrir arquivo");
         exit(1);
