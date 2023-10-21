@@ -38,6 +38,8 @@ void menu() {
                 //printf("Caminhos Possiveis: \n");
                 Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
 
+                printf("\n\n\n\tSaiu Movimentar:::\n\t");
+
                 if (matrix.qtdRotas != 0) {
                     printf("Tesouro Encontrado!\n");
                     printf("[Caminhos Encontrados: %d]\n", matrix.qtdRotas);
