@@ -18,7 +18,7 @@ void menu() {
         printf("\n\t| %s Insira o que deseja fazer: %s         |", YELLOW, RESET);
         printf("\n\t+--------------------------------------+");
         printf("\n\t| %s 1 - Ler arquivo com matriz de jogo %s |", GREEN, RESET);
-        printf("\n\t| %s 2 - Criar um novo Tabuleiro e Jogar %s |", GREEN, RESET);
+        printf("\n\t| %s 2 - Criar um novo Labirinto e Jogar %s|", GREEN, RESET);
         printf("\n\t| %s 3 - Sair %s                           |", RED, RESET);
         printf("\n\t+--------------------------------------+");
         printf("\n\t %sInsira sua escolha: \n\t --> %s", YELLOW, RESET);
