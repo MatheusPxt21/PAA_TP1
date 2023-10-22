@@ -11,7 +11,7 @@ int isEmpty(PilhaCoordenadas* ptr) {
 void push(PilhaCoordenadas* ptr, int ptrLine, int ptrCollun) {
     Coordenadas* PtrVar = (Coordenadas*)malloc(sizeof(Coordenadas));
     if (PtrVar == NULL) {
-        printf("Ocorreu um erro na alocação de memória.\n");
+        printf("\n\t%sOcorreu um erro na alocação de memória.%s\n", B_RED, RESET);
         return;
     }
     PtrVar->line = ptrLine;
@@ -33,12 +33,12 @@ void pop(PilhaCoordenadas* ptr) {
 
 void ApresentarCoordenadas(PilhaCoordenadas* ptr) {
     if (isEmpty(ptr)) {
-        printf("Pilha vazia\n");
+        printf("\n\t%sPilha vazia%s\n", RED, RESET);
     } else {
         Coordenadas* PtrVar = ptr->topo;
-        printf("Coordenadas: ");
+        printf("\n\t%sCaminho: %s\n\t", CYAN, RESET);
         while (PtrVar != NULL) {
-            printf("[%d|%d] ", PtrVar->line, PtrVar->collun);
+            printf("%s[%s%d%s|%s%d%s]%s ", GREEN, YELLOW, PtrVar->line, GREEN, YELLOW, PtrVar->collun, GREEN, RESET);
             PtrVar = PtrVar->next;
         }
         printf("\n");
@@ -82,13 +82,13 @@ int pilhaEqual(PilhaCoordenadas* pilha1, PilhaCoordenadas* pilha2) {
 void InserirFilaPilhas(FilaPilhas* fila, PilhaCoordenadas* pilha) {
     Node* novoNode = (Node*)malloc(sizeof(Node));
     if (novoNode == NULL) {
-        printf("Erro: Memória insuficiente\n");
+        printf("\n\t%sErro: Memória insuficiente%s\n", B_RED, RESET);
         return;
     }
 
     PilhaCoordenadas* novaPilha = (PilhaCoordenadas*)malloc(sizeof(PilhaCoordenadas));
     if (novaPilha == NULL) {
-        printf("Erro: Memória insuficiente\n");
+        printf("\n\t%sErro: Memória insuficiente%s\n", B_RED, RESET);
         free(novoNode);
         return;
     }
@@ -103,8 +103,6 @@ void InserirFilaPilhas(FilaPilhas* fila, PilhaCoordenadas* pilha) {
 
     novoNode->pilha = *novaPilha;
     novoNode->next = NULL;
-
-    // Não libere a memória alocada para a nova pilha aqui
 
     if (isEmptyFilaPilhas(fila)) {
         fila->front = novoNode;
@@ -141,7 +139,7 @@ void imprimirFilaPilhas(FilaPilhas* fila) {
 
 void pilhaComMenorQtd(FilaPilhas* fila) {
     if (isEmptyFilaPilhas(fila)) {
-        printf("Fila vazia.\n");
+        printf("\n\t%sFila vazia.%s\n\t", RED, RESET);
         return;
     }
 
@@ -157,7 +155,7 @@ void pilhaComMenorQtd(FilaPilhas* fila) {
     }
 
     if (menorPilha != NULL) {
-        printf("Pilha com menor valor em QuantidadeElementos:\n");
+        printf("\n\t%sMenor caminho encontrado:%s\n", GREEN, RESET);
         ApresentarCoordenadas(menorPilha);
     }
 }

@@ -41,6 +41,9 @@ void popRamificacao(PilhaRamificado *ptr){
     ptr->topo = PTRVAR->prox;
     free(PTRVAR);
 }
+
+//Funções para teste:::
+
 void ApresentarRamificacao(PilhaRamificado *ptr){
     if(estaVazioRamificacao(ptr)){
         return;
@@ -71,5 +74,3 @@ int EstaPresentePilhaRamificado(PilhaRamificado *ptr, int line, int collun) {
     printf("Elemento (%d, %d) nao encontrado na pilha.\n", line, collun);
     return 0;
 }
-
-void LiberarRamificacao(PilhaRamificado *ptr);

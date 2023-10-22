@@ -17,11 +17,12 @@ TIPO_MATRIZ criaMatriz(int linhas, int colunas)
     return matriz;
 }
 
-TIPO_MATRIZ lerMatrizArquivo(char *arqEntrada)
+TIPO_MATRIZ lerMatrizArquivo(const char *arqEntrada)
 {
-    FILE *file = fopen("/home/matheuspeixoto/Área de Trabalho/TP-PAA/ArquivosTeste/ExemploDoc.txt", "r");
+    FILE *file = fopen(arqEntrada, "r");
     if(file == NULL){
-        perror("Erro ao abrir arquivo");
+        printf("%s\n\tErro ao abrir arquivo%s\n", RED, RESET);
+        printf("%sTerminando execucao%s\n", RED, RESET);
         exit(1);
     }
 
@@ -144,18 +145,17 @@ TIPO_MATRIZ geraMatrizAleatoria(int linhas, int colunas)
     //define a posição inicial como válida
     mat.mat_CONTEUDO[0][0] = '0';
 
+    //modo de evitar que a posição do tesouro seja a mesma da posição inicial
     if(Tesouro_Linha == 0 && Tesouro_Coluna == 0){
         Tesouro_Linha += 1;
         Tesouro_Coluna += 1;
     }
-
 
     mat.mat_CONTEUDO[Tesouro_Linha][Tesouro_Coluna] = 'X';
 
     mat.mat_tesouroX = Tesouro_Linha;
     mat.mat_tesouroY = Tesouro_Coluna;
     mat.mat_CHAVES = contaChaves;
-
 
     return mat;
 }

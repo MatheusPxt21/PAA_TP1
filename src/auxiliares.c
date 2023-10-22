@@ -8,11 +8,11 @@ void menu() {
     PilhaRamificado PtrRamificado;
     TIPO_MATRIZ matrix;
     FilaPilhas filaPilhas;
-    int Saida,resposta = 0,COLUNA,LINHA;
+    int resposta = 0,COLUNA,LINHA;
 
-    char nomeArq;
+    char nomeArq[50], arqEntrada[90];
 
-    while (resposta != 2) {
+    while (resposta != 3) {
         printf("\n\t %s%s            Indiana Jones             %s", B_YELLOW, GREEN, RESET);
         printf("\n\t+--------------------------------------+");
         printf("\n\t| %s Insira o que deseja fazer: %s         |", YELLOW, RESET);
@@ -21,74 +21,81 @@ void menu() {
         printf("\n\t| %s 2 - Criar um novo Tabuleiro e Jogar %s |", GREEN, RESET);
         printf("\n\t| %s 3 - Sair %s                           |", RED, RESET);
         printf("\n\t+--------------------------------------+");
-        printf("\n\t Insira sua escolha: \n\t --> ");
+        printf("\n\t %sInsira sua escolha: \n\t --> %s", YELLOW, RESET);
 
         scanf("%d", &resposta);
 
         switch (resposta) {
             case 1:
-                printf("Insira o nome do arquivo que deseja testar: \n");
-                printf("É necessário que este arquivo se encontre na pasta ArquivosTeste.\n");
-                //scanf("%s", nomeArq);
+                printf("%s\tInsira o nome do arquivo que deseja testar: %s\n", YELLOW, RESET);
+                printf("%s\t(É necessário que este arquivo se encontre na pasta ArquivosTeste)%s\n\t", YELLOW, RESET);
 
-                strcpy(&nomeArq, "ExemploDoc.txt");
+                scanf("%s", nomeArq);
 
-                matrix = lerMatrizArquivo(&nomeArq);
+                snprintf(arqEntrada, sizeof(arqEntrada), "ArquivosTeste/%s", nomeArq);
+
+                matrix = lerMatrizArquivo(arqEntrada);
+
                 inicializarJogador(&PtrJogador, matrix);
-                //printf("Caminhos Possiveis: \n");
+
                 Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
 
-                printf("\n\n\n\tSaiu Movimentar:::\n\t");
+                menu2(matrix, filaPilhas);
 
-                if (matrix.qtdRotas != 0) {
-                    printf("Tesouro Encontrado!\n");
-                    printf("[Caminhos Encontrados: %d]\n", matrix.qtdRotas);
-                    printf("Qual a saida desejada? \n");
-                    printf("[1] -> Apresentar Melhor Saida\n");
-                    printf("[2] -> Apresentar Todas as Saidas Disponiveis\n");
-                    scanf("%d",&Saida);
-                    if(Saida==1){
-                        pilhaComMenorQtd(&filaPilhas);
-                    }else if(Saida==2){
-                        imprimirFilaPilhas(&filaPilhas);
-                    }
-
-                } else {
-                    printf("O Jogador Não Conseguiu Encontrar o Baú!\n");
-                }
                 break;
+
             case 2:
-                printf("Digite o numero de colunas e linhas: ");
+                printf("\t%sDigite o numero de colunas e linhas:\n\t %s", YELLOW, RESET);
                 scanf("%d %d",&LINHA,&COLUNA);
+
                 matrix = geraMatrizAleatoria(LINHA,COLUNA);
                 imprimeMatriz(matrix);
+
                 inicializarJogador(&PtrJogador, matrix);
-                //printf("Caminhos Possiveis: \n");
+
                 Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
-                if (matrix.qtdRotas != 0) {
-                    printf("Tesouro Encontrado!\n");
-                    printf("[Caminhos Encontrados: %d]\n", matrix.qtdRotas);
-                    printf("Qual a saida desejada? \n");
-                    printf("[1] -> Apresentar Melhor Saida\n");
-                    printf("[2] -> Apresentar Todas as Saidas Disponiveis\n");
-                    scanf("%d",&Saida);
-                    if(Saida==1){
-                        pilhaComMenorQtd(&filaPilhas);
-                    }else if(Saida==2){
-                        imprimirFilaPilhas(&filaPilhas);
-                    }
-                } else {
-                    printf("O Jogador Não Conseguiu Encontrar o Baú!\n");
-                }
+
+                menu2(matrix, filaPilhas);
 
                 break;
+
             case 3:
                 printf("\n\t%sSaindo do programa... %s\n\n\n", RED, RESET);
-                exit(1);
+                break;
 
             default:
                 printf("\n\t%sValor desconhecido, tente novamente... %s\n\n\n", YELLOW, RESET);
                 break;
         }
+    }
+}
+
+
+void menu2(TIPO_MATRIZ matrix, FilaPilhas filaPilhas)
+{
+    int resposta;
+
+    if (matrix.qtdRotas != 0) {
+        printf("\n\t%s+-------------------------------+%s", YELLOW, RESET);
+        printf("\n\t%s|%s%s\tTesouro Encontrado!\t%s%s|%s", YELLOW, BOLD,GREEN, BOLD, YELLOW, RESET);
+        printf("\n\t%s+-------------------------------+%s", YELLOW, RESET);
+        printf("\n\t%s|%s   [Caminhos Encontrados:%s %d%s]   %s|%s", YELLOW,RESET, GREEN, matrix.qtdRotas, RESET, YELLOW, RESET);
+        printf("\n\t%s+-------------------------------+%s", YELLOW, RESET);
+        printf("\n");
+        printf("\n\t%s+----------------------------------------------+%s", YELLOW, RESET);
+        printf("\n\t%s|%s           %sQual a saida desejada?%s             %s|%s", YELLOW, CYAN, BOLD, RESET, YELLOW, RESET);
+        printf("\n\t%s|%s[1] Apresentar Melhor Caminho                 %s|%s", YELLOW, GREEN, YELLOW, RESET);
+        printf("\n\t%s|%s[2] Apresentar Todos os Caminhos Disponiveis  %s|%s", YELLOW, GREEN, YELLOW, RESET);
+        printf("\n\t%s+----------------------------------------------+%s", YELLOW, RESET);
+
+        printf("\n\t %sInsira sua escolha: \n\t --> %s", YELLOW, RESET);
+        scanf("%d",&resposta);
+        if(resposta==1){
+            pilhaComMenorQtd(&filaPilhas);
+        }else if(resposta==2){
+            imprimirFilaPilhas(&filaPilhas);
+        }
+    } else {
+        printf("\n\t%s%sIndiana Jones nao consegue abrir o bau :(%s\n", B_RED, BLACK, RESET);
     }
 }
