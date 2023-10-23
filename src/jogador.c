@@ -22,6 +22,8 @@ void inicializarJogador(Jogador *Ptr,TIPO_MATRIZ Var_TipoMatriz){
         }
     }
 
+    Ptr->contadorBacktracking = 0;
+
 }
 
 void Movimentar(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,PilhaCoordenadas *pilha,PilhaCoordenadas *pilhaChaves,PilhaRamificado *pilhaRamificacao,FilaPilhas *Fila){
@@ -41,6 +43,8 @@ void Movimentar(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,PilhaCoordenadas *pilha
 }
 
 int backtracking(Jogador *Ptr,TIPO_MATRIZ *Var_TipoMatriz,int *i,int *j,PilhaCoordenadas *pilhaChaves,PilhaCoordenadas *pilha,int *I_Ramificacao,int *J_Ramificacao,int *control,PilhaRamificado *pilhaRamificacao,FilaPilhas *Fila){
+
+    Ptr->contadorBacktracking += 1;
 
     //Posição válida
     if(Ptr->PtrJ->ConteudoJogador[*i][*j].Valor=='C'){

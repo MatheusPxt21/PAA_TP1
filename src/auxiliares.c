@@ -41,6 +41,7 @@ void menu() {
                 Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
 
                 menu2(matrix, filaPilhas);
+                printf("\n\t%sContador Backtracking: %d%s\n", BLUE, PtrJogador.contadorBacktracking, RESET);
 
                 break;
 
@@ -56,6 +57,7 @@ void menu() {
                 Movimentar(&PtrJogador, &matrix, &PtrPilha, &PtrPilhaChaves, &PtrRamificado,&filaPilhas);
 
                 menu2(matrix, filaPilhas);
+                printf("\n\t%sContador Backtracking: %d%s\n", BLUE, PtrJogador.contadorBacktracking, RESET);
 
                 break;
 

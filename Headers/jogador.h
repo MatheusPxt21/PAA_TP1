@@ -17,6 +17,8 @@ typedef struct Jogador{
     int ChavesColetadas,TamanhoJogadorX,TamanhoJogadorY;
     //Interação com a struct MatrizJogador
     MatrizJogador *PtrJ;
+
+    int contadorBacktracking;
 }Jogador;
 
 void inicializarJogador(Jogador *Ptr,TIPO_MATRIZ Var_TipoMatriz);
