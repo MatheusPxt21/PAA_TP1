@@ -1,8 +1,7 @@
 all:
-	gcc backtracking/headersBacktracking/Jogador.h backtracking/headersBacktracking/Pilha.h backtracking/srcBacktracking/Jogador.c backtracking/srcBacktracking/Pilha.c Cores/cores.h LeituraArquivo/headers/FunctionsArquivo.h LeituraArquivo/src/FunctionsArquivo.c LeituraArquivo/src/MainTeste.c
+	gcc main.c Headers/lerArquivo.h src/lerArquivo.c Headers/cores.h Headers/auxiliares.h src/auxiliares.c Headers/pilha.h src/pilha.c  Headers/CaminhoRamificado.h src/CaminhoRamificado.c Headers/jogador.h src/jogador.c
 
 Linux:
 	./a.out
-
 Windows:
 	./a.exe
